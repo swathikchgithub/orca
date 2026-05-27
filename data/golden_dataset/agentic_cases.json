@@ -1,0 +1,38 @@
+[
+  {
+    "id": "AG-001",
+    "description": "Tip calculator — uses calculator_tool",
+    "mode": "agentic",
+    "input": "Calculate 15% tip on a $47.50 bill.",
+    "expected_contains": ["7.1"],
+    "expected_not_contains": [],
+    "check_type": "contains",
+    "expected_tools": ["calculator_tool"],
+    "tags": ["tool_use", "math", "smoke_test"],
+    "priority": "critical"
+  },
+  {
+    "id": "AG-002",
+    "description": "Search — capital city lookup",
+    "mode": "agentic",
+    "input": "Search for the capital of Japan and tell me.",
+    "expected_contains": ["Tokyo"],
+    "expected_not_contains": [],
+    "check_type": "contains",
+    "expected_tools": ["search_tool"],
+    "tags": ["tool_use", "search"],
+    "priority": "high"
+  },
+  {
+    "id": "AG-003",
+    "description": "Database — user count query",
+    "mode": "agentic",
+    "input": "How many total users do we have in the database?",
+    "expected_contains": ["15420"],
+    "expected_not_contains": [],
+    "check_type": "contains",
+    "expected_tools": ["database_tool"],
+    "tags": ["tool_use", "database"],
+    "priority": "high"
+  }
+]

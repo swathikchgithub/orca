@@ -1,0 +1,60 @@
+[
+  {
+    "id": "MT-001",
+    "description": "Name memory — remember across turns",
+    "mode": "multi_turn",
+    "turns": [
+      {
+        "input": "My name is Swathi.",
+        "expected_contains": ["Swathi"],
+        "check_type": "contains"
+      },
+      {
+        "input": "What is my name?",
+        "expected_contains": ["Swathi"],
+        "check_type": "contains"
+      }
+    ],
+    "tags": ["memory", "identity", "smoke_test"],
+    "priority": "critical"
+  },
+  {
+    "id": "MT-002",
+    "description": "Preference memory — honor earlier context",
+    "mode": "multi_turn",
+    "turns": [
+      {
+        "input": "I prefer short answers.",
+        "expected_contains": [],
+        "check_type": "none"
+      },
+      {
+        "input": "What is machine learning?",
+        "expected_contains": [],
+        "check_type": "max_words",
+        "max_words": 80
+      }
+    ],
+    "tags": ["memory", "preference"],
+    "priority": "high"
+  },
+  {
+    "id": "MT-003",
+    "description": "Topic switch — handles gracefully",
+    "mode": "multi_turn",
+    "turns": [
+      {
+        "input": "Tell me about dogs.",
+        "expected_contains": ["dog"],
+        "check_type": "contains"
+      },
+      {
+        "input": "Now tell me about cats.",
+        "expected_contains": ["cat"],
+        "check_type": "contains"
+      }
+    ],
+    "tags": ["context", "topic_switch"],
+    "priority": "medium"
+  }
+]

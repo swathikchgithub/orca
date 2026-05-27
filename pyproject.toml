@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=40.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "orca"
+version = "1.0.0"
+requires-python = ">=3.9"
+
+[tool.setuptools]
+py-modules = ["config"]
+packages   = ["agent", "agent.prompts", "testing", "tools", "api"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"

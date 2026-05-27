@@ -1,0 +1,64 @@
+# ─────────────────────────────────────────────
+# 🐋 ORCA — .gitignore
+# These files/folders are NEVER committed to git
+# ─────────────────────────────────────────────
+
+# 🔐 SECRETS — most important, never commit these
+.env
+*.key
+*.pem
+secrets/
+
+# 🐍 Python virtual environment
+.venv/
+venv/
+env/
+ENV/
+
+# 🐍 Python cache files (auto-generated, not needed)
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+
+# 🧪 Test cache
+.pytest_cache/
+.coverage
+htmlcov/
+*.coverage
+
+# 📦 Build artifacts
+dist/
+build/
+*.egg-info/
+*.egg
+
+# 💻 Mac OS junk files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# 💻 VS Code settings (optional — some teams commit this)
+.vscode/
+*.code-workspace
+
+# 💻 JetBrains / PyCharm
+.idea/
+*.iml
+
+# 📊 Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# 📝 Logs
+*.log
+logs/
+
+# 🗃️ Local database files
+*.db
+*.sqlite
+*.sqlite3
+
+# 📁 ORCA specific — don't commit test outputs
+data/outputs/
+data/traces/
