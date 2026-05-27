@@ -1,0 +1,6 @@
+# ── Dev / test dependencies (local only, not deployed) ───────
+-r requirements.txt    # includes all runtime deps
+
+pytest>=8.0.0          # test runner
+pytest-asyncio>=0.23.0 # async test support
+rich>=13.7.0           # pretty terminal traces during dev

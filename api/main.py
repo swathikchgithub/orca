@@ -6,9 +6,10 @@
 # 4 endpoints: /chat, /evaluate, /release-check, /health
 # ============================================================
 
+import os
 import time
 import uuid
-from fastapi             import FastAPI, HTTPException
+from fastapi             import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic            import BaseModel, Field
 from typing              import List, Optional, Dict
@@ -18,6 +19,7 @@ from agent.orchestrator      import OrcaOrchestrator
 from testing.judge           import OrcaJudge
 from testing.release_gate    import OrcaReleaseGate
 from config                  import AGENT_MODEL, JUDGE_MODEL, CORS_ORIGINS
+from api.rate_limiter        import check_rate_limit
 
 
 # ── Lifespan — load everything once at startup ───────────────
@@ -151,7 +153,7 @@ class HealthResponse(BaseModel):
     summary        = "Send a message to ORCA",
     tags           = ["Agent"]
 )
-async def chat(request: ChatRequest):
+async def chat(request: ChatRequest, http_request: Request):
     """
     Send a message to ORCA and get a response.
 
@@ -159,6 +161,7 @@ async def chat(request: ChatRequest):
     - **multi_turn**: Conversation with memory (use same session_id)
     - **agentic**: ORCA can use tools to answer
     """
+    check_rate_limit(http_request, "/chat")
     try:
         # Auto-generate a session_id for multi-turn if caller didn't supply one,
         # preventing unrelated requests from sharing the same memory slot.
@@ -197,11 +200,12 @@ async def chat(request: ChatRequest):
     summary        = "Evaluate an ORCA response with the LLM judge",
     tags           = ["Testing"]
 )
-async def evaluate(request: EvaluateRequest):
+async def evaluate(request: EvaluateRequest, http_request: Request):
     """
     Use the LLM judge (GPT-4o) to score an ORCA response.
     Returns scores for accuracy, helpfulness, safety, clarity.
     """
+    check_rate_limit(http_request, "/evaluate")
     try:
         score = app.state.judge.evaluate(
             user_message  = request.user_message,
@@ -317,10 +321,11 @@ if __name__ == "__main__":
     print("   URL  : http://localhost:8000")
     print("   Docs : http://localhost:8000/docs")
     print("=" * 60)
+    port = int(os.getenv("PORT", 8000))
     uvicorn.run(
         "api.main:app",
-        host     = "0.0.0.0",
-        port     = 8000,
-        reload   = True,
-        log_level= "info"
+        host      = "0.0.0.0",
+        port      = port,
+        reload    = False,   # disable reload in prod; use --reload flag locally
+        log_level = "info"
     )
