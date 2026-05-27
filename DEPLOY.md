@@ -86,25 +86,16 @@ https://<your-railway-url>.up.railway.app/docs
 
 ## Part 2 — Deploy the Dashboard (Vercel)
 
-### Step 1: Push `orca-dashboard` to GitHub
+The dashboard lives in the `dashboard/` subfolder of this repo — no separate repository needed.
 
-```bash
-cd /Volumes/LaCie/orca-dashboard
-git init
-git add -A
-git commit -m "initial commit"
-git remote add origin https://github.com/<your-username>/orca-dashboard.git
-git push -u origin main
-```
-
-### Step 2: Create a new Vercel project
+### Step 1: Create a new Vercel project
 
 1. Go to [vercel.com](https://vercel.com) → **Add New Project**
-2. Import the `orca-dashboard` repository
-3. Framework preset: **Next.js** (auto-detected)
-4. Leave all build settings as default
+2. Import the `orca` repository (same repo as the backend)
+3. **Important:** Set **Root Directory** to `dashboard`
+4. Framework preset: **Next.js** (auto-detected)
 
-### Step 3: Set environment variable in Vercel
+### Step 2: Set environment variable in Vercel
 
 Go to **Settings → Environment Variables** → add:
 
@@ -114,14 +105,13 @@ NEXT_PUBLIC_API_URL = https://<your-railway-url>.up.railway.app
 
 > Use the Railway URL from Part 1, Step 4.
 
-### Step 4: Redeploy
+### Step 3: Deploy
 
-After adding the env var, trigger a redeploy:
-- **Deployments** → **Redeploy** on the latest deployment
+Click **Deploy**. Vercel builds only the `dashboard/` subtree — the Python backend files are ignored.
 
-### Step 5: Update CORS on Railway
+### Step 4: Update CORS on Railway
 
-Now that you have the Vercel URL, go back to Railway → Variables and update:
+Once Vercel gives you the dashboard URL, go back to Railway → Variables and update:
 
 ```
 CORS_ORIGINS = https://<your-project>.vercel.app

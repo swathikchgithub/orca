@@ -62,3 +62,8 @@ logs/
 # 📁 ORCA specific — don't commit test outputs
 data/outputs/
 data/traces/
+
+# 🖥️ Dashboard (Next.js)
+dashboard/node_modules/
+dashboard/.next/
+dashboard/*.tsbuildinfo

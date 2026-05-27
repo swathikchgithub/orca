@@ -142,9 +142,15 @@ orca/
 │   ├── golden_dataset/       # test cases: single_turn, multi_turn, agentic
 │   └── rubrics/              # judge scoring rubric
 │
+├── dashboard/                # Next.js frontend (deployed to Vercel)
+│   ├── app/                  # pages: chat, evaluate, release, architecture
+│   ├── components/           # Sidebar, ArchitectureDiagram
+│   ├── lib/api.ts            # typed API client (reads NEXT_PUBLIC_API_URL)
+│   └── package.json
+│
 ├── tests/                    # 150 tests, 0 failures
 ├── config.py                 # all settings loaded from .env
-├── Procfile                  # Railway deployment
+├── Procfile                  # Railway deployment (backend only)
 ├── requirements.txt          # runtime deps only
 ├── requirements-dev.txt      # runtime + test deps
 └── .env.example              # env var documentation
