@@ -32,7 +32,7 @@ export default function Sidebar() {
 
   return (
     <header
-      className="sticky top-0 z-40 w-full"
+      className="sticky top-0 z-40 w-full relative"
       style={{
         background: "rgba(7,7,15,0.85)",
         borderBottom: "1px solid var(--border)",
@@ -81,7 +81,7 @@ export default function Sidebar() {
                 }}
               >
                 <span className="text-base leading-none">{emoji}</span>
-                <span className="hidden lg:inline">{label}</span>
+                <span className="hidden md:inline">{label}</span>
               </Link>
             );
           })}
