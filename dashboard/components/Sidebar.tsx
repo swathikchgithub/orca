@@ -32,20 +32,20 @@ export default function Sidebar() {
 
   return (
     <header
-      className="sticky top-0 z-40 w-full relative"
+      className="sticky top-0 z-40 w-full"
       style={{
-        background: "rgba(7,7,15,0.85)",
+        background: "rgba(7,7,15,0.9)",
         borderBottom: "1px solid var(--border)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
       }}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center">
+      <div className="max-w-6xl mx-auto px-6 sm:px-10 h-16 flex items-center justify-between gap-4">
 
         {/* ── Logo ── */}
         <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
           <div
-            className="w-8 h-8 rounded-xl flex items-center justify-center text-sm flex-shrink-0"
+            className="w-9 h-9 rounded-xl flex items-center justify-center text-base flex-shrink-0"
             style={{
               background: "linear-gradient(135deg, var(--accent), var(--purple))",
               boxShadow: "0 0 18px rgba(99,102,241,0.45)",
@@ -53,47 +53,44 @@ export default function Sidebar() {
           >
             🐋
           </div>
-          <span className="text-sm font-black font-display gradient-text hidden sm:inline">
+          <span className="text-base font-black font-display gradient-text hidden sm:inline">
             ORCA
           </span>
         </Link>
 
-        {/* ── Nav — centered absolutely ── */}
-        <nav className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1">
+        {/* ── Nav — centered ── */}
+        <nav className="flex items-center gap-1">
           {NAV.map(({ href, label, emoji }) => {
             const active = pathname === href;
             return (
               <Link
                 key={href}
                 href={href}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-semibold font-display transition-all duration-200"
+                className="flex items-center gap-2 rounded-xl font-semibold font-display transition-all duration-200"
                 style={{
-                  background: active
-                    ? "rgba(99,102,241,0.18)"
-                    : "transparent",
-                  border: active
-                    ? "1px solid rgba(99,102,241,0.4)"
-                    : "1px solid transparent",
+                  padding: "8px 14px",
+                  background: active ? "rgba(99,102,241,0.18)" : "transparent",
+                  border: active ? "1px solid rgba(99,102,241,0.4)" : "1px solid transparent",
                   color: active ? "var(--text-primary)" : "var(--text-muted)",
-                  boxShadow: active
-                    ? "0 0 14px rgba(99,102,241,0.22)"
-                    : "none",
+                  boxShadow: active ? "0 0 14px rgba(99,102,241,0.22)" : "none",
+                  fontSize: "0.875rem",
+                  whiteSpace: "nowrap",
                 }}
               >
-                <span className="text-base leading-none">{emoji}</span>
-                <span className="hidden md:inline">{label}</span>
+                <span style={{ fontSize: "1.1rem", lineHeight: 1 }}>{emoji}</span>
+                <span className="hidden sm:inline">{label}</span>
               </Link>
             );
           })}
         </nav>
 
-        {/* ── Status — pushed right ── */}
-        <div className="ml-auto flex items-center gap-2 flex-shrink-0">
+        {/* ── Status ── */}
+        <div className="flex items-center gap-2 flex-shrink-0">
           <span
-            className="w-2 h-2 rounded-full flex-shrink-0"
+            className="w-2.5 h-2.5 rounded-full flex-shrink-0"
             style={{
               background: statusColor,
-              boxShadow: `0 0 7px ${statusColor}`,
+              boxShadow: `0 0 8px ${statusColor}`,
             }}
           />
           <span
