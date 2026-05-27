@@ -101,9 +101,16 @@ export default function ChatPage() {
                 tokens: resp.tokens_used,
             }]);
         } catch (e) {
+            const raw = e instanceof Error ? e.message : "Unknown error";
+            const isNetwork = raw.includes("DOCTYPE") || raw.includes("fetch") || raw.includes("Failed") || raw.startsWith("HTTP");
             setMessages(prev => [...prev, {
-                role: "orca", content: `Error: ${e instanceof Error ? e.message : "Unknown error"}`,
-                blocked: true, duration: 0, tokens: 0,
+                role: "orca",
+                content: isNetwork
+                    ? "Could not reach the ORCA backend. Check that NEXT_PUBLIC_API_URL is set correctly in Vercel and the Railway service is running."
+                    : `Error: ${raw}`,
+                blocked: false,
+                duration: 0,
+                tokens: 0,
             }]);
         } finally {
             setLoading(false);

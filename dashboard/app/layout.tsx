@@ -32,10 +32,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${syne.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}>
       <body>
-        <div className="flex min-h-screen">
+        <div className="min-h-screen flex flex-col">
           <Sidebar />
-          {/* pt-14 = mobile top bar height; pb-20 = mobile bottom tab bar height */}
-          <main className="flex-1 flex flex-col overflow-auto pt-14 lg:pt-0 pb-20 lg:pb-0 min-w-0">
+          <main className="flex-1 flex flex-col overflow-auto">
             {children}
           </main>
         </div>

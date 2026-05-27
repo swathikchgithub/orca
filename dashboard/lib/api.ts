@@ -78,8 +78,9 @@ export async function chatWithOrca(
         })
     });
     if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.detail || "Chat failed");
+        let detail = `HTTP ${res.status}`;
+        try { detail = (await res.json()).detail ?? detail; } catch { /* HTML error page */ }
+        throw new Error(detail);
     }
     return res.json();
 }
